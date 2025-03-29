@@ -1,7 +1,7 @@
 from Tasks.task import Task
-from Tasks import tasklist
+from Tasks.tasklist import TaskList
 
-task_list = tasklist.TaskList()
+task_list = TaskList()
 
 def print_options():
     print("(l)ist all tasks")
