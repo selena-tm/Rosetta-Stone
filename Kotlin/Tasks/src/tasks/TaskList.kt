@@ -3,8 +3,7 @@ package tasks
 class TaskList {
     private var tasks: MutableList<Task> = mutableListOf()
 
-    fun addTask (name: String) {
-        val task = Task(name)
+    fun addTask (task: Task) {
         tasks.add(task)
     }
 
@@ -16,11 +15,12 @@ class TaskList {
         tasks.removeAt(number - 1)
     }
 
+    // returns a string representation of the tasks contained in the list
     fun getTasks (): String {
         val taskString: StringBuilder = StringBuilder()
 
         for (task in tasks.withIndex()) {
-            taskString.append("${task.index + 1}. ${task.value.getName()}\n ${task.value.getCompleted()}\n")
+            taskString.append("${task.index + 1}. ${task.value.getName()} ${task.value.getCompleted()}\n")
         }
 
         return taskString.toString()

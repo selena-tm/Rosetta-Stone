@@ -1,10 +1,7 @@
 import `interface`.Cli
 
 fun main() {
-
-    println("Tasks\n")
-
+    // start the cli
     val cli = Cli()
     cli.getOption()
-
 }

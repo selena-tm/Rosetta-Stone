@@ -2,45 +2,52 @@ package `interface`
 
 import io.FileOutput
 import io.FileInput
+import tasks.Task
 import tasks.TaskList
-import kotlin.system.exitProcess
 
 class Cli {
     private var taskList: TaskList = TaskList()
 
+    // simply prints out the options available
     private fun printOptions () {
         println("(l)ist all tasks")
         println("(n)ew task")
         println("(e)dit existing task")
         println("(d)elete task")
-        println("(m)ark task as complete")
+        println("(t)oggle task's completeness")
         println("\n")
         println("(c)lose the program")
         println("\n")
         println("enter the letter of your selection: ")
     }
 
+    // get the user's option
     fun getOption () {
         val fileInput = FileInput(taskList)
         fileInput.inputTasks()
 
+        // while the user doesn't enter "c", ask for a new option and evaluate it
         do {
             printOptions()
             val option = readln()
             evaluateOption(option)
+
         } while (option != "c")
 
+        // when the user enters "c" to close, output tasks to file
         val fileOutput = FileOutput(taskList)
         fileOutput.writeFile()
     }
 
+    // evaluate the option the user entered
     private fun evaluateOption (option: String) {
         when (option) {
             "l" -> listTasks()
             "n" -> newTask()
             "e" -> editTask()
             "d" -> deleteTask()
-            "m" -> completeTask()
+            "t" -> toggleTask()
+            "c" -> println("closing tasks...")
             else -> println("invalid option")
         }
     }
@@ -54,7 +61,8 @@ class Cli {
         println("new task creation...")
         println("enter the name of your task")
         val name = readln()
-        taskList.addTask(name)
+        val newTask = Task(name)
+        taskList.addTask(newTask)
     }
 
     private fun editTask () {
@@ -73,14 +81,15 @@ class Cli {
         taskList.removeTask(number)
     }
 
-    private fun completeTask () {
+    private fun toggleTask () {
         println("task completion...")
-        println("enter the number of the task you wish to complete")
+        println("enter the number of the task you wish to toggle complete")
         val number = getNumber()
         val task = taskList.getTask(number)
-        task.completeTask()
+        task.toggleComplete()
     }
 
+    // make sure the user enters a valid Int
     private fun getNumber (): Int {
         var number: Int?
 

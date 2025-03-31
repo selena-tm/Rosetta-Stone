@@ -7,15 +7,18 @@ class Task (private var name: String) {
         return name
     }
 
-    fun getCompleted (): Boolean {
-        return completed
+    fun getCompleted (): String {
+        if (completed) {
+            return "✓"
+        }
+        return "✗"
     }
 
     fun changeName (newName: String) {
         name = newName
     }
 
-    fun completeTask () {
-        completed = true
+    fun toggleComplete () {
+        completed = !completed
     }
 }
