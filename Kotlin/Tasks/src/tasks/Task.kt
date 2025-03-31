@@ -7,6 +7,7 @@ class Task (private var name: String) {
         return name
     }
 
+    // returns either a checkmark or an x if the task is completed or not
     fun getCompleted (): String {
         if (completed) {
             return "✓"
